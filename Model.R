@@ -6,7 +6,7 @@ CreateModelFunctional <- function () {
   longOutput <- longInput %>%
     #layer_conv_1d(1, 1, padding = "valid", strides = 1, use_bias = F) %>%
     layer_flatten() %>%
-    layer_dense(units = Ty, use_bias = FALSE)#, activation = 'sigmoid')
+    layer_dense(units = Ty, kernel_initializer="zero", use_bias = FALSE)#, activation = 'sigmoid')
 
   model <- keras_model(longInput, longOutput)
   summary(model)

@@ -5,16 +5,16 @@ n <- 10^5
 x <- data.frame(x1=sort(scale(rpois(n, 1000000))), x2 =sort(scale(rpois(n, 1000000))))
 y <- data.frame(y1=(x$x1+x$x2)/2)
 
-shuffledIndex<-sample(1:n)
-x <- x[shuffledIndex,]
-y <- y[shuffledIndex,,drop=F]
+#shuffledIndex<-sample(1:n)
+#x <- x[shuffledIndex,]
+#y <- y[shuffledIndex,,drop=F]
 
 model <- keras_model_sequential() 
-model %>% layer_dense(units = 1, input_shape = 2)
+model %>% layer_dense(units = 1, input_shape = 2, kernel_initializer="zero")
 model %>% compile(loss = 'mean_squared_error', optimizer = optimizer_sgd())
 
 summary(model)
-model %>% fit(as.matrix(x), as.matrix(y), epochs = 1000, batch_size=10000)
+model %>% fit(as.matrix(x), as.matrix(y), epochs = 100, batch_size=128)
 model$get_weights()
 Sys.time() - time
 
